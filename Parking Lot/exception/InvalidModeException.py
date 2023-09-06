@@ -1,0 +1,2 @@
+class InvalidModeException(RuntimeError):
+    pass

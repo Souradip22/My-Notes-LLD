@@ -1,0 +1,211 @@
+# Requirements for the parking lot problem
+
+1. Total capacity to park - 40,000 vehicles
+
+2. 4 different types of parking spots - Handicapped, Compact, Large and Motorcycle (Abs Class - ParkingSpot)
+
+3. There are multiple entrance and exit points
+
+4. Types of vehicle allowed - Car, Truck, Van, Motorcycle (Abs Class - Vehicle)
+
+5. There will be one display board which will show free parking spots for each parking spot types
+
+6. Customers should be able to collect a parking ticket from the entrance and pay at the exit
+
+7. Customer can pay for the ticket either with an automated exit panel or pay to the parking agent at exit
+
+8. The payment should be calculated at an hourly rate
+
+9. Payment should be made using either credit/debit card or CASH
+
+10. If the parking lot is completely occupied , the system should show a message on the entrance and on parking lot display board
+
+
+Primary actors:
+- Customer - can park the vehicle in the allocated parking space according to the vehicle type and pay for the parking before exit
+    - Take ticket
+    - Scan ticket
+    - Pay ticket
+    - CASH
+    - Credit/Debit card
+    - Park vehicle
+
+- Parking agent : assist the customer and perform all the tasks that a customer can do, such as paying the parking ticket OBO customer
+    - Update account
+    - Login/Logout
+    - View account
+    - Take ticket
+    - Scan ticket
+    - Pay ticket
+    - CASH
+    - Credit/Debit card
+    - Park vehicle
+
+
+Secondary actors:
+- Admin : can add, remove, ot update a spot, agent, entry/exit panels, and view/update accounts
+    - Add spot
+    - Add agent
+    - Add/Modify hourly rate
+    - Add entry/exit panel
+    - Update account
+    - Login/Logout
+    - View account
+
+- System : responsible for giving details of parking spot availability and assigning a parking spot to vehicle
+    - Assigning parking spot to vehicles
+    - Remove spot
+    - Show full
+    - Show available
+
+
+
+
+Classes Overview:
+
+1. Vehicle (ABS)
+    
+    - licenseNo : String
+
+    + assignTicket(): void
+
+    child classes - Car, Truck, Van, Motorcycle
+
+2. Parking spot (ABS)
+
+    - id : int
+    - isFree : bool
+    - vehicle : Vehicle
+
+    + getIsFree() : bool
+    + assignVehicle()
+    + removeVehicle():
+
+    child classes - Large, Handicapped, Compact, Motorcycle
+
+
+3. Account (ABS)
+
+    - userName : String
+    - password : String
+    - status : AccountStatus
+    - person : Person
+
+    + resetPassword() : bool
+
+    child classes -
+
+    3.1 Admin
+
+        + addParkingSpot(floorName, spot) : bool
+        + addDisplayBoard(floorName, displayBoard) : bool
+        + addEntrance(entrance) : bool
+        + addExit(exit) : bool
+
+    3.2 ParkingAgent
+
+        + processTicket() : bool
+
+4. Display board
+
+    - id : int
+    - handicappedSpot : Handicapped
+    - compactSpot : Compact
+    - largeSpot : Large
+    - motorcycleSpot : Motorcycle
+
+    + showFreeSlot() : void
+
+5. Entrence and Exit
+
+    5.1 Entrance
+
+        - id : int
+
+        + getTicket() : ParkingTicket
+
+    5.2 Exit
+
+        - id : int
+
+        + validateTicket() : void
+
+6. Parking ticket
+
+    - ticketNo : int
+    - timestamp : date/time
+    - exit : date/time
+    - amount : double
+    - payment : Payment
+
+7. Payment (ABS)
+
+    - amount : double
+    - status : PaymentStatus
+    - timestamp : date/time
+
+    + initiateTransaction() : void
+
+    7.1 CASH
+
+    7.2 Credit/Debit Card
+
+8. Parking rate
+
+    - hours : double
+    - rate : double
+
+    + calculate() : void
+
+9. Parking lot
+
+    - id : int
+    - name : String
+    - address : Address
+
+    + addEntrance() : bool
+    + addExit() : bool
+    + getParkingTicket() : ParkingTicket
+    + isFull() : bool
+
+10. ENUM for PaymentStatus and AccountStatus
+
+    10.1 PaymentStatus
+        - Completed
+        - Failed
+        - Pending
+        - Unpaid
+        - Refunded
+
+    10.2 AccountStatus
+        - Active
+        - Closed
+        - Canceled
+        - Blacklisted
+        - None
+
+11. Address
+
+    - zipCode : int
+    - address : string
+    - city : string
+    - state : string
+    - country : String
+
+12. person
+
+    - name : string
+    - streetAddress : string
+    - zipCode : int
+    - city : string
+    - state : string
+    - country : String
+
+
+
+Follow UP - the parking lot should assign a parking spot closest to the entrance
+
+
+
+
+
