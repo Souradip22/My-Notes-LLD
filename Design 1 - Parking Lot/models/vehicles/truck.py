@@ -2,7 +2,7 @@
 from interfaces.i_vehicle import Vehicle
 
 
-class Truck(Vehicle):
+class TruckVehicle(Vehicle):
     def __init__(self, license_no) -> None:
         super().__init__(license_no)
 
